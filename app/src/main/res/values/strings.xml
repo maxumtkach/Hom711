@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Hom 7-1-1</string>
+    <string name="synchronization">Synchronization</string>
+    <string name="time_error">TimeError</string>
+    <string name="morning_activity">MorningActivity</string>
+    <string name="time">Time</string>
+    <string name="evening_activity">EveningActivity</string>
+    <string name="afternoon_activity">AfternoonActivity</string>
+</resources>
