@@ -10,57 +10,48 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {   //timeInt lunch night
 
-    private TextView textView;
-    private String[] valuesTime;
-    private int timeInt;
-    private int nighttimeInt;
-    private Button button;
+    private static final int MIDNIGHT_START_TIME_HOUR = 0;
+    private static final int MORNING_START_TIME_HOUR = 6;
+    private static final int AFTERNOON_START_TIME_HOUR = 14;
+    private static final int EVENING_START_TIME_HOUR = 15;
+    private static final int MIDNIGHT_ITEM_START_TIME_HOUR = 24;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initV0iew();
 
-        String currentTimeString = DateFormat.getTimeInstance().format(new Date());
-        valuesTime = currentTimeString.split(":");
+        TextView textView = findViewById(R.id.text);
+        Button button = findViewById(R.id.bottom_synchronization);
+        final int timeInt = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
-        String valuesTimeIndex = valuesTime[0];
-        timeInt = Integer.parseInt(valuesTimeIndex);
+        textView.setText("" + timeInt);
 
-        nighttimeInt = Integer.parseInt(valuesTimeIndex);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_SYNC);
-                if (14 > timeInt && timeInt >= 6) {
+                if (MIDNIGHT_START_TIME_HOUR <= timeInt && timeInt < MORNING_START_TIME_HOUR) {
+                    intent.setData(Uri.parse("http://evening"));
+
+                } else if (MORNING_START_TIME_HOUR <= timeInt && timeInt < AFTERNOON_START_TIME_HOUR) {
                     intent.setData(Uri.parse("http://morning"));
 
-                } else if (timeInt == 14) {
+                } else if (timeInt == AFTERNOON_START_TIME_HOUR) {
                     intent.setData(Uri.parse("http://afternoon"));
 
-                } else if (6 > timeInt) {
+                } else if (EVENING_START_TIME_HOUR <= timeInt && timeInt < MIDNIGHT_ITEM_START_TIME_HOUR) {
                     intent.setData(Uri.parse("http://evening"));
 
-                } else if (nighttimeInt >= 15) {
-                    intent.setData(Uri.parse("http://evening"));
-
-                } else {
-                    textView.setText(R.string.time_error);
                 }
                 startActivity(intent);
             }
         });
-    }
-
-    public void initV0iew() {
-        textView = findViewById(R.id.text);
-        button = findViewById(R.id.bottom_synchronization);
-
     }
 }

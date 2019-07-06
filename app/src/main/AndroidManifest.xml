@@ -27,7 +27,7 @@
                 <data android:scheme="http" android:host="morning"/>
             </intent-filter>
         </activity>
-        <activity android:name=".EveningActivity">
+        <activity android:name=".AfternoonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SYNC"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -35,7 +35,7 @@
                 <data android:scheme="http" android:host="afternoon"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AfternoonActivity">
+        <activity android:name=".EveningActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SYNC"/>
                 <category android:name="android.intent.category.DEFAULT"/>
